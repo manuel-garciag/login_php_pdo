@@ -1,6 +1,23 @@
 <?php
+include 'partials/head.php';
+include 'partials/menu.php';
+?>
+<div class="container">
 
-include '../controlador/usuarioControlador.php';
+    <div class="starter-template">
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Login con PHP.</h1>
+                <p>Curso de Formando Codigo.</p>
+                <p>
+                    <a href="login.php" class="btn btn-primary btn-lg">Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
 
-// echo UsuarioControlador::login("manuel_garcia", "1234");
-echo UsuarioControlador::login("useraleatorio", "1234");
+</div><!-- /.container -->
+
+<?php
+include 'partials/footer.php';
+?>

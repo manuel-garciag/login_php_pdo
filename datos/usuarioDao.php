@@ -26,7 +26,7 @@ class UsuarioDao extends Conexion
      */
     public static function login($usuario)
     {
-        $query = "SELECT u.id, u.nombre, u.usuario, u.email, u.privilegio, u.fecha_registro FROM usuarios u WHERE u.usuario = :usuario AND password = :password";
+        $query = "SELECT u.* FROM usuarios u WHERE u.usuario = :usuario AND password = :password";
 
         self::getConexion();
 
@@ -43,10 +43,11 @@ class UsuarioDao extends Conexion
         $resultado->bindValue(":password", $usuario->getPassword());
         $resultado->execute();
 
-        // die(var_dump($resultado->fetchAll(PDO::FETCH_ASSOC)));
-
         if ($resultado->rowCount() > 0) {
-            return true;
+            $filas = $resultado->fetch();
+            if ($filas['usuario'] == $usuario->getUsuario() && $filas['password'] == $usuario->getPassword()) {
+                return true;
+            }
         }
 
         return false;
