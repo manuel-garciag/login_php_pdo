@@ -31,11 +31,21 @@ class UsuarioDao extends Conexion
         self::getConexion();
 
         $resultado = self::$cnx->prepare($query);
-        $resultado->bindParam(":usuario", $usuario->getUsuario());
-        $resultado->bindParam(":password", $usuario->getPassword());
+
+        // Forma 1 para enviar los datos
+        // $user = $usuario->getUsuario();
+        // $pass = $usuario->getPassword();
+        // $resultado->bindParam(":usuario", $user);
+        // $resultado->bindParam(":password", $pass);
+
+        // Forma 2 para enviar los datos
+        $resultado->bindValue(":usuario", $usuario->getUsuario());
+        $resultado->bindValue(":password", $usuario->getPassword());
         $resultado->execute();
 
-        if (count($resultado)) {
+        // die(var_dump($resultado->fetchAll(PDO::FETCH_ASSOC)));
+
+        if ($resultado->rowCount() > 0) {
             return true;
         }
 
