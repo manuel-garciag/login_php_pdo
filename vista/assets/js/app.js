@@ -6,11 +6,39 @@ $(document).ready(function () {
             type: $(this).attr('method'),
             url: $(this).attr('action'),
             data: $(this).serialize(),
-            success: function () {
-                alert('conectado');
+            beforeSend: function () {
+                $('#loginForm button[type=submit]').html('Enviando...');
+                $('#loginForm button[type=submit]').attr('disabled', 'disabled');
+            },
+            success: function (response) {
+                if (response.estado == true) {
+                    $("body").overhang({
+                        type: "success",
+                        message: "Usuario encontrado! Te estamos redirigiendo...",
+                        callback: function () {
+                            window.location.href = 'admin.php';
+                        }
+                    });
+                } else {
+                    $("body").overhang({
+                        type: "error",
+                        message: "Usuario o password incorrecto!"
+                    });
+                }
+
+                $('#loginForm button[type=submit]').html('Ingresar');
+                $('#loginForm button[type=submit]').removeAttr('disabled');
+
             },
             error: function () {
-                alert('error');
+                $("body").overhang({
+                    type: "error",
+                    message: "Usuario o password incorrecto!"
+                });
+
+                $('#loginForm button[type=submit]').html('Ingresar');
+                $('#loginForm button[type=submit]').removeAttr('disabled');
+
             }
         });
 

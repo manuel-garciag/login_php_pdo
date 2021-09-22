@@ -16,6 +16,7 @@
     <link href="https://getbootstrap.com/docs/3.3/examples/starter-template/starter-template.css" rel="stylesheet">
 
     <script src="https://getbootstrap.com/docs/3.3/assets/js/ie-emulation-modes-warning.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/overhang.min.css" />
 </head>
 
 <body>
