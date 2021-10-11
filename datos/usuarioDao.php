@@ -52,4 +52,42 @@ class UsuarioDao extends Conexion
 
         return false;
     }
+
+    /**
+     * Metodo que sirve para obtener un usuario
+     * 
+     * @param object $usuario
+     * @return object 
+     */
+    public static function getUsuario($usuario)
+    {
+        $query = "SELECT u.id, u.nombre, u.email, u.usuario, u.privilegio, u.fecha_registro FROM usuarios u WHERE u.usuario = :usuario AND password = :password";
+
+        self::getConexion();
+
+        $resultado = self::$cnx->prepare($query);
+
+        // Forma 1 para enviar los datos
+        // $user = $usuario->getUsuario();
+        // $pass = $usuario->getPassword();
+        // $resultado->bindParam(":usuario", $user);
+        // $resultado->bindParam(":password", $pass);
+
+        // Forma 2 para enviar los datos
+        $resultado->bindValue(":usuario", $usuario->getUsuario());
+        $resultado->bindValue(":password", $usuario->getPassword());
+        $resultado->execute();
+
+        $filas = $resultado->fetch();
+
+        $usuario = new Usuario();
+        $usuario->setId($filas['id']);
+        $usuario->setNombre($filas['nombre']);
+        $usuario->setUsuario($filas['usuario']);
+        $usuario->setEmail($filas['email']);
+        $usuario->setPrivilegio($filas['privilegio']);
+        $usuario->setFecha_registro($filas['fecha_registro']);
+
+        return $usuario;
+    }
 }

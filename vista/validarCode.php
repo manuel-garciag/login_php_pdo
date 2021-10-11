@@ -15,7 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $resultado = array('estado' => true);
 
         if (UsuarioControlador::login($txtUsuario, $txtPassword)) {
-            return print(json_encode($resultado));
+            // return print(json_encode($resultado));
+            $usuario = UsuarioControlador::getUsuario($txtUsuario, $txtPassword);
+            echo $usuario->getNombre();
         }
     }
 }
