@@ -1,10 +1,10 @@
 <?php
 include 'partials/head.php';
 if (isset($_SESSION['usuario'])) {
-    if ($_SESSION['usuario']['privilegio'] == 2) {
-        header('location:usuario.php');
+    if ($_SESSION['usuario']['privilegio'] == 1) {
+        header('location:admin.php');
     }
-} else {   
+} else {
     header('location:login.php');
 }
 
