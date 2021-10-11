@@ -3,6 +3,8 @@
 include '../controlador/usuarioControlador.php';
 include '../helps/helps.php';
 
+session_start();
+
 header('Content-type: application/json');
 $resultado = array();
 
@@ -15,9 +17,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $resultado = array('estado' => true);
 
         if (UsuarioControlador::login($txtUsuario, $txtPassword)) {
-            // return print(json_encode($resultado));
             $usuario = UsuarioControlador::getUsuario($txtUsuario, $txtPassword);
-            echo $usuario->getNombre();
+            
+            $_SESSION['usuario'] = array(
+                'id'                => $usuario->getId(),
+                'nombre'            => $usuario->getNombre(),
+                'usuario'           => $usuario->getUsuario(),
+                'email'             => $usuario->getEmail(),
+                'privilegio'        => $usuario->getPrivilegio(),
+                'fecha_registro'    => $usuario->getFecha_registro()
+            );
+
+            return print(json_encode($resultado));
+
         }
     }
 }
